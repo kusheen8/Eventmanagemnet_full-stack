@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDG NMIT Events</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>GDG NMIT Events</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="events.html">Upcoming Events</a>
+        </nav>
+        <input type="text" id="search" placeholder="Filter by event title">
+    </header>
+    <main>
+        <section id="events"></section>
+    </main>
+    <script>
+        const events = [
+            {
+                id: 1,
+                title: "Tech Talk on AI",
+                date: "2023-11-01",
+                time: "10:00 AM",
+                location: "Auditorium",
+                description: "Join us for an insightful talk on Artificial Intelligence.",
+                image: "ai-event.jpg"
+            },
+            {
+                id: 2,
+                title: "Web Development Workshop",
+                date: "2023-11-05",
+                time: "2:00 PM",
+                location: "Room 101",
+                description: "Learn the latest trends in web development.",
+                image: "web-dev-workshop.jpg"
+            },
+        ];
+
+        function renderEvents(events) {
+            const eventsContainer = document.getElementById('events');
+            eventsContainer.innerHTML = '';
+
+            events.forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${event.image}" alt="${event.title}">
+                    <h3>${event.title}</h3>
+                    <p><strong>Date:</strong> ${event.date} ${event.time}</p>
+                    <p><strong>Location:</strong> ${event.location}</p>
+                    <p>${event.description}</p>
+                    <a href="registration.html?event-id=${event.id}" class="button">Register</a>
+                `;
+                eventsContainer.appendChild(card);
+            });
+        }
+
+        document.getElementById('search').addEventListener('input', (event) => {
+            const filteredEvents = events.filter(e => e.title.toLowerCase().includes(event.target.value.toLowerCase()));
+            renderEvents(filteredEvents);
+        });
+
+        renderEvents(events);
+    </script>
+</body>
+</html>
